@@ -97,6 +97,10 @@ function App() {
       >
         <Typography variant="h5" textAlign="center">
           වැඩි විස්තර දැනගැනීම සඳහා පහත තොරතුරු ලබා දෙන්න
+          <br/>
+          For more details, please provide the following information.
+          <br/>
+          மேலும் விவரங்களைப் பெற, தயவுசெய்து கீழே உள்ள தகவல்களை வழங்கவும்.
         </Typography>
 
         <TextField
