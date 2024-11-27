@@ -1,7 +1,7 @@
 // src/App.js
 import React, { useState } from 'react';
 import './App.css';
-
+// import './dotenv/config';
 import axios from 'axios';
 import { Alert, Box, Button, Container, Snackbar, TextField, Typography } from '@mui/material';
 
@@ -9,6 +9,8 @@ import { Alert, Box, Button, Container, Snackbar, TextField, Typography } from '
 
 
 function App() {
+
+ 
   const [formData, setFormData] = useState({
     Mobile: '',
     Name: '',
@@ -38,8 +40,14 @@ function App() {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/customer`, {
         Mobile: formData.Mobile,
         Name: formData.Name,
+        
       });
-      
+
+      const app = process.env.REACT_APP_BASE_URL;
+
+      console.log('app', app)
+
+      // console.log('REACT_APP_BASE_URL', REACT_APP_BASE_URL)
       
       setPopup({
         show: true,
