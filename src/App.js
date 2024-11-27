@@ -35,10 +35,11 @@ function App() {
     }
 
     try {
-      const response = await axios.post('http://localhost:8000/api/customer', {
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/customer`, {
         Mobile: formData.Mobile,
         Name: formData.Name,
       });
+      
       
       setPopup({
         show: true,

@@ -5,7 +5,6 @@ import './index.css';
 import Dialog from './Dialog';
 
 import App from './App';
-import Test from './test';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
