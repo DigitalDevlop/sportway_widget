@@ -1,161 +1,80 @@
-// src/App.js
-import React, { useState } from 'react';
-import './App.css';
-// import './dotenv/config';
-import axios from 'axios';
-import { Alert, Box, Button, Container, Snackbar, TextField, Typography } from '@mui/material';
+const handleChange = (event) => {
+  const { name, value } = event.target;
 
-
-
-
-function App() {
-
- 
-  const [formData, setFormData] = useState({
-    Mobile: '',
-    Name: '',
-    
-  });
-
-  const [popup, setPopup] = useState({
-    show: false,
-    message: '',
-    type: 'success', // 'success' or 'error'
-  });
-
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-
-    // Simple validation
-    if (!formData.Mobile || !formData.Name) {
+  // Mobile number validation
+  if (name === 'Mobile') {
+    // Allow only numeric values
+    if (!/^\d*$/.test(value)) {
       setPopup({
         show: true,
-        message: 'Please fill out all fields.',
+        message: 'Mobile number can only contain numbers.',
         type: 'error',
       });
       return;
     }
 
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/customer`, {
-        Mobile: formData.Mobile,
-        Name: formData.Name,
-        
-      });
-
-      const app = process.env.REACT_APP_BASE_URL;
-
-      console.log('app', app)
-
-      // console.log('REACT_APP_BASE_URL', REACT_APP_BASE_URL)
-      
+    // Optional: Limit the length of the mobile number (e.g., 10 digits)
+    if (value.length > 10) {
       setPopup({
         show: true,
-        message: 'Form submitted successfully!',
-        type: 'success',
-      });
-
-      console.log('API Response:', response.data);
-
-      // Optionally, reset the form fields after successful submission
-      setFormData({
-        Mobile: '',
-        Name: '',
-       
-      });
-    } catch (error) {
-      setPopup({
-        show: true,
-        message: 'Error submitting the form. Please try again later.',
+        message: 'Mobile number cannot exceed 10 digits.',
         type: 'error',
       });
-
-      console.error('Error while making API call:', error);
+      return;
     }
-  };
+  }
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    [name]: value,
+  }));
+};
 
-  const closePopup = () => {
+const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  // Ensure Mobile is a valid number and has 10 digits
+  if (!formData.Mobile || formData.Mobile.length !== 10) {
     setPopup({
-      show: false,
-      message: '',
+      show: true,
+      message: 'Please enter a valid 10-digit mobile number.',
+      type: 'error',
+    });
+    return;
+  }
+
+  if (!formData.Name) {
+    setPopup({
+      show: true,
+      message: 'Please enter your name.',
+      type: 'error',
+    });
+    return;
+  }
+
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/customer`, {
+      Mobile: formData.Mobile,
+      Name: formData.Name,
+    });
+
+    setPopup({
+      show: true,
+      message: 'Form submitted successfully!',
       type: 'success',
     });
-  };
-  return (
-    <Container className="form" maxWidth="sm">
-      <Box 
-        component="form" 
-        onSubmit={handleSubmit} 
-        sx={{
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 2, 
-          mt: 4,
-          p: 2,
-          backgroundColor: '#00fc44',
-          borderRadius: 2,
-        }}
-      >
-        <Typography variant="h5" textAlign="center">
-          වැඩි විස්තර දැනගැනීම සඳහා පහත තොරතුරු ලබා දෙන්න
-          <br/>
-          For more details, please provide the following information.
-          <br/>
-          மேலும் விவரங்களைப் பெற, தயவுசெய்து கீழே உள்ள தகவல்களை வழங்கவும்.
-        </Typography>
 
-        <TextField
-          label="Mobile Number"
-          variant="outlined"
-          name="Mobile"
-          value={formData.Mobile}
-          onChange={handleChange}
-          fullWidth
-        />
+    setFormData({
+      Mobile: '',
+      Name: '',
+    });
+  } catch (error) {
+    setPopup({
+      show: true,
+      message: 'Error submitting the form. Please try again later.',
+      type: 'error',
+    });
 
-        <TextField
-          label="Name"
-          variant="outlined"
-          name="Name"
-          value={formData.Name}
-          onChange={handleChange}
-          fullWidth
-        />
-
-        <Button 
-          type="submit"
-          variant="contained" 
-          color="primary"
-          disabled={!formData.Mobile || !formData.Name}
-        >
-          Submit
-        </Button>
-      </Box>
-
-      <Snackbar 
-        open={popup.show} 
-        autoHideDuration={6000} 
-        onClose={closePopup}
-      >
-        <Alert 
-          onClose={closePopup} 
-          severity={popup.type} 
-          sx={{ width: '100%' }}
-        >
-          {popup.message}
-        </Alert>
-      </Snackbar>
-    </Container>
-  );
-}
-
-export default App;
-
+    console.error('Error while making API call:', error);
+  }
+};
