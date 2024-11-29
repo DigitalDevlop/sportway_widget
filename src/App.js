@@ -51,7 +51,7 @@ function App() {
       
       setPopup({
         show: true,
-        message: 'Form submitted successfully!',
+        message: 'Form submitted successfully! www.sportway.lk',
         type: 'success',
       });
 
@@ -135,6 +135,7 @@ function App() {
           variant="contained" 
           color="primary"
           disabled={!formData.Mobile || !formData.Name}
+          
         >
           Submit
         </Button>
