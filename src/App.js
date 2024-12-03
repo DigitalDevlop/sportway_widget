@@ -43,11 +43,7 @@ function App() {
         
       });
 
-      const app = process.env.REACT_APP_BASE_URL;
 
-      console.log('app', app)
-
-      // console.log('REACT_APP_BASE_URL', REACT_APP_BASE_URL)
       
       setPopup({
         show: true,
@@ -63,6 +59,11 @@ function App() {
         Name: '',
        
       });
+       // Redirect to sportway.lk after 2 seconds
+    setTimeout(() => {
+      window.location.href = 'https://sportway.lk';
+    }, 2000);
+    
     } catch (error) {
       setPopup({
         show: true,
@@ -141,6 +142,15 @@ function App() {
         </Typography>
 
         <TextField
+          label="Name"
+          variant="outlined"
+          name="Name"
+          value={formData.Name}
+          onChange={handleChange}
+          fullWidth
+        />
+
+        <TextField
           label="Mobile Number"
           variant="outlined"
           name="Mobile"
@@ -149,14 +159,7 @@ function App() {
           fullWidth
         />
 
-        <TextField
-          label="Name"
-          variant="outlined"
-          name="Name"
-          value={formData.Name}
-          onChange={handleChange}
-          fullWidth
-        />
+        
 
         <Button 
           type="submit"
