@@ -32,11 +32,17 @@ export default function ResponsiveDialog() {
     <React.Fragment>
       <App />
       <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-      >
+      fullScreen={fullScreen}
+      open={open}
+      onClose={(_, reason) => {
+        if (reason !== "backdropClick" && reason !== "escapeKeyDown") {
+          handleClose();
+        }
+      }}
+      disableEscapeKeyDown
+      aria-labelledby="responsive-dialog-title"
+    >
+      
         <DialogTitle id="responsive-dialog-title">
           {"Sportway Legal to play"}
         </DialogTitle>

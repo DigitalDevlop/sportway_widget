@@ -51,7 +51,7 @@ function App() {
       
       setPopup({
         show: true,
-        message: 'Form submitted successfully! www.sportway.lk',
+        message: 'Form submitted successfully!',
         type: 'success',
       });
 
@@ -70,17 +70,45 @@ function App() {
         type: 'error',
       });
 
+     
+
       console.error('Error while making API call:', error);
     }
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+  
+    if (name === "Mobile") {
+      // Allow only numeric input
+      if (/^\d*$/.test(value) && value.length <= 10) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+  
+        // Regular expression to match exactly 10 digits
+        const regex = /^\d{10}$/;
+        setPopup((prevPopup) => ({
+          ...prevPopup,
+          message: value.length === 10 ? "Mobile number is valid." : "",
+          type: value.length === 10 ? "success" : "error",
+        }));
+      } else {
+        setPopup((prevPopup) => ({
+          ...prevPopup,
+          message: "Only digits are allowed.",
+          type: "error",
+        }));
+      }
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    }
   };
+  
 
   const closePopup = () => {
     setPopup({
