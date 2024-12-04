@@ -67,10 +67,16 @@ export default function ResponsiveDialog() {
         </DialogActions>
       </Dialog>
       <Dialog
-        open={noAccessOpen}
-        onClose={handleNoAccessClose}
-        aria-labelledby="no-access-dialog-title"
-      >
+  aria-labelledby="no-access-dialog-title"
+  open={noAccessOpen}
+  onClose={(_, reason) => {
+    if (reason === "backdropClick" || reason === "escapeKeyDown") {
+      return; // Prevent closing the dialog for these reasons
+    }
+    handleNoAccessClose(); // Close the dialog for valid reasons
+  }}
+>
+
         <DialogTitle id="no-access-dialog-title">
           {"Access Denied"}
         </DialogTitle>
