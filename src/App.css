@@ -8,20 +8,20 @@ body {
 /* Background image for devices with a maximum width of 480px */
 @media only screen and (max-width: 480px) {
   body {
-    background-image: url("./img/WBM1.png");
+    background-image: url("./img/4.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
   }
   .form {
     position: absolute;
-    top: 30%;
+    top: 31%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgb(36, 255, 76);
     opacity: 0.8;
-    padding: 4px;
-    border-radius: 5px;
+    /* padding: 2px; */
+    border-radius: 10px;
     z-index: 1;
     width: 300px;
     height: auto;
@@ -32,7 +32,7 @@ body {
 /* Background image for devices with a minimum width of 481px */
 @media only screen and (min-width: 481px) {
   body {
-    background-image: url("./img/WB1.png");
+    background-image: url("./img/2.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -41,7 +41,7 @@ body {
   .form {
     position: absolute;
     top: 50%;
-    left: 70%;
+    left: 66%;
     transform: translate(-50%, -50%);
     background-color: rgb(36, 255, 76);
     opacity: 0.8;

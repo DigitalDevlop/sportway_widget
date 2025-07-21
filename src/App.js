@@ -119,7 +119,7 @@ function App() {
     });
   };
   return (
-    <Container className="form" maxWidth="sm">
+    <Container className="form" maxWidth="xs">
       <Box 
         component="form" 
         onSubmit={handleSubmit} 
@@ -128,9 +128,10 @@ function App() {
           flexDirection: 'column', 
           gap: 2, 
           mt: 4,
-          p: 2,
+          // p: 2,
           backgroundColor: '#00fc44',
           borderRadius: 2,
+          maxWidth:"400px"
         }}
       >
         <Typography variant="h5" textAlign="center">
@@ -142,8 +143,9 @@ function App() {
         </Typography>
 
         <TextField
+        style={{backgroundColor: 'white',}}
           label="Name"
-          variant="outlined"
+          variant="filled"
           name="Name"
           value={formData.Name}
           onChange={handleChange}
@@ -151,8 +153,9 @@ function App() {
         />
 
         <TextField
+        style={{backgroundColor: 'white',}}
           label="Mobile Number"
-          variant="outlined"
+          variant="filled"
           name="Mobile"
           value={formData.Mobile}
           onChange={handleChange}
